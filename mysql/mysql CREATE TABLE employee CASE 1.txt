@@ -1,0 +1,253 @@
+mysql> CREATE TABLE employee (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(100),
+    ->     location VARCHAR(100),
+    ->     Email VARCHAR(120),
+    ->     salary DECIMAL(10,2),
+    ->     dept VARCHAR(100) DEFAULT 'IT'
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc employee;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| emp_id   | int           | NO   | PRI | NULL    |       |
+| emp_name | varchar(100)  | YES  |     | NULL    |       |
+| location | varchar(100)  | YES  |     | NULL    |       |
+| Email    | varchar(120)  | YES  |     | NULL    |       |
+| salary   | decimal(10,2) | YES  |     | NULL    |       |
+| dept     | varchar(100)  | YES  |     | IT      |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO employee
+    -> (emp_id, emp_name, location, email, salary)
+    -> VALUES
+    -> (1, 'sandip', 'pune', 'sandip123@gmail.com', 75000.75),
+    -> (2, 'kuldeep', 'pune', 'kuldeep213@gmail.com', 5000.10);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO employee
+    -> (emp_id, emp_name, location, email, salary, dept)
+    -> VALUES
+    -> (3, 'ram', 'mumbai', 'ram321@gmail.com', 15000.10, 'QA'),
+    -> (4, 'harsh', 'nashik', 'harsh001@gmail.com', 1500.40, 'soft');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+
+| emp_id | emp_name | location | Email                | salary   | dept |
++--------+----------+----------+----------------------+----------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |
+|      2 | kuldeep  | pune     | kuldeep213@gmail.com |  5000.10 | IT   |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |
++--------+----------+----------+----------------------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column ( age int );
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update employee
+    -> set age = case emp_id
+    -> when 1 then 23
+    -> when 2 then 24
+    -> when 3 then 25
+    -> when 4 then 22
+    -> end
+    -> where emp_id (1,2,3,4);
+ERROR 1305 (42000): FUNCTION all_folder.emp_id does not exist
+mysql> update employee
+    -> set age = case emp_id
+    -> when 1 then 23
+    -> when 2 then 24
+    -> when 3 then 25
+    -> when 4 then 22
+    -> end
+    ->
+    -> where emp_id in   (1,2,3,4);
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | pune     | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set location = 'Deccan'
+    -> where emp_id = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from  employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> order by salary ASC;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> order by salary DESC;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> order by salary ASC;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> ;;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> SELECT salary,count(*)
+    -> from employee
+    -> group by salary;
++----------+----------+
+| salary   | count(*) |
++----------+----------+
+| 75000.75 |        1 |
+|  5000.10 |        1 |
+| 15000.10 |        1 |
+|  1500.40 |        1 |
++----------+----------+
+4 rows in set (0.01 sec)
+
+
+mysql> SELECT dept, COUNT(*) AS total_employee
+    -> FROM employee
+    -> GROUP BY dept;
++------+----------------+
+| dept | total_employee |
++------+----------------+
+| IT   |              2 |
+| QA   |              1 |
+| soft |              1 |
++------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept, SUM(salary) AS total_employee
+    -> FROM employee
+    -> GROUP BY dept;
++------+----------------+
+| dept | total_employee |
++------+----------------+
+| IT   |       80000.85 |
+| QA   |       15000.10 |
+| soft |        1500.40 |
++------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept, AVG(SALARY) AS total_employee
+    -> FROM employee
+    -> GROUP BY dept;
++------+----------------+
+| dept | total_employee |
++------+----------------+
+| IT   |   40000.425000 |
+| QA   |   15000.100000 |
+| soft |    1500.400000 |
++------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT dept, MAX(SALARY) AS total_employee
+    -> FROM employee
+    -> GROUP BY dept;
++------+----------------+
+| dept | total_employee |
++------+----------------+
+| IT   |       75000.75 |
+| QA   |       15000.10 |
+| soft |        1500.40 |
++------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept, MIN(SALARY) AS total_employee
+    -> FROM employee
+    -> GROUP BY dept;
++------+----------------+
+| dept | total_employee |
++------+----------------+
+| IT   |        5000.10 |
+| QA   |       15000.10 |
+| soft |        1500.40 |
++------+----------------+
+3 rows in set (0.00 sec)
+
+mysq
