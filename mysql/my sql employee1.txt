@@ -1,0 +1,163 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| all_folder         |
+| bank               |
+| customers          |
+| information_schema |
+| mycode             |
+| mypractice         |
+| mysql              |
+| performance_schema |
++--------------------+
+8 rows in set (0.16 sec)
+
+mysql> use all_folder;
+Database changed
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.01 sec)
+
+mysql> select emp_id from employee;
++--------+
+| emp_id |
++--------+
+|      1 |
+|      2 |
+|      3 |
+|      4 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where emp_id = 1;
++--------+----------+----------+---------------------+----------+------+------+
+| emp_id | emp_name | location | Email               | salary   | dept | age  |
++--------+----------+----------+---------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com | 75000.75 | IT   |   23 |
++--------+----------+----------+---------------------+----------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select email from employee
+    -> where emp_id = 1;
++---------------------+
+| email               |
++---------------------+
+| sandip123@gmail.com |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select email from employee;
++----------------------+
+| email                |
++----------------------+
+| sandip123@gmail.com  |
+| kuldeep213@gmail.com |
+| ram321@gmail.com     |
+| harsh001@gmail.com   |
++----------------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> desc employee;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| emp_id   | int           | NO   | PRI | NULL    |       |
+| emp_name | varchar(100)  | YES  |     | NULL    |       |
+| location | varchar(100)  | YES  |     | NULL    |       |
+| Email    | varchar(120)  | YES  |     | NULL    |       |
+| salary   | decimal(10,2) | YES  |     | NULL    |       |
+| dept     | varchar(100)  | YES  |     | IT      |       |
+| age      | int           | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+7 rows in set (0.07 sec)
+
+mysql> insert into employee
+    -> ( emp_id,emp_name,location,email,salary,dept,age)
+    -> values
+    -> (5,'chetan','chalisgaon','chetan000@gmail.com',350340.100,'income tax',25);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from employee;
++--------+----------+------------+----------------------+-----------+------------+------+
+| emp_id | emp_name | location   | Email                | salary    | dept       | age  |
++--------+----------+------------+----------------------+-----------+------------+------+
+|      1 | sandip   | pune       | sandip123@gmail.com  |  75000.75 | IT         |   23 |
+|      2 | kuldeep  | Deccan     | kuldeep213@gmail.com |   5000.10 | IT         |   24 |
+|      3 | ram      | mumbai     | ram321@gmail.com     |  15000.10 | QA         |   25 |
+|      4 | harsh    | nashik     | harsh001@gmail.com   |   1500.40 | soft       |   22 |
+|      5 | chetan   | chalisgaon | chetan000@gmail.com  | 350340.10 | income tax |   25 |
++--------+----------+------------+----------------------+-----------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> delete from employee
+    -> where emp_id = 5;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+----------+------+------+
+| emp_id | emp_name | location | Email                | salary   | dept | age  |
++--------+----------+----------+----------------------+----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  | 75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |  5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     | 15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |  1500.40 | soft |   22 |
++--------+----------+----------+----------------------+----------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee
+    ->     -> ( emp_id,emp_name,location,email,salary,dept,age)
+    ->     -> values
+    ->     -> (5,'chetan','chalisgaon','chetan000@gmail.com',350340.100,'income tax',25);
+mysql> insert int
+mysql> INSERT INTO employee
+    -> (emp_id, emp_name, location, email, salary, dept, age)
+    -> VALUES
+    -> (5, 'ganesh', 'Baramati', 'ganesh000@gmail.com', 350340.100, 'it', 25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++--------+----------+----------+----------------------+-----------+------+------+
+| emp_id | emp_name | location | Email                | salary    | dept | age  |
++--------+----------+----------+----------------------+-----------+------+------+
+|      1 | sandip   | pune     | sandip123@gmail.com  |  75000.75 | IT   |   23 |
+|      2 | kuldeep  | Deccan   | kuldeep213@gmail.com |   5000.10 | IT   |   24 |
+|      3 | ram      | mumbai   | ram321@gmail.com     |  15000.10 | QA   |   25 |
+|      4 | harsh    | nashik   | harsh001@gmail.com   |   1500.40 | soft |   22 |
+|      5 | ganesh   | Baramati | ganesh000@gmail.com  | 350340.10 | it   |   25 |
++--------+----------+----------+----------------------+-----------+------+------+
+5 rows in set (0.00 sec)
+
+mysql>
