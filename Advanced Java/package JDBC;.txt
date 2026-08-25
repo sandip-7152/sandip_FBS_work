@@ -1,0 +1,87 @@
+package JDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class JDBCconnetor {
+
+    public static void main(String[] args) throws Exception {
+
+        // 1. Load MySQL Driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // 2. Create Connection
+        Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/all_folder",
+                "root",
+                "sandip7152"
+        );
+
+        System.out.println("Connection Successful!");
+        System.out.println("------------------------------------------");
+
+        // 3. Create Statement
+        Statement stmt = con.createStatement();
+
+        // 4. SELECT query
+        String query = "SELECT * FROM employee";
+
+        // 5. Execute query
+        ResultSet rs = stmt.executeQuery(query);
+
+        // 6. Print table data
+        while (rs.next()) {
+
+            System.out.println(
+                    rs.getInt("emp_id") + " | " +
+                    rs.getString("emp_name") + " | " +
+                    rs.getString("location") + " | " +
+                    rs.getString("email") + " | " +
+                    rs.getDouble("salary") + " | " +
+                    rs.getString("dept") + " | " +
+                    rs.getInt("age")
+            );
+        }
+    
+
+    
+
+        // 7. Close connection
+        con.close();
+
+        System.out.println("------------------------------------------");
+        System.out.println("Connection Closed!");
+    }
+}
+
+
+
+//package JDBC;
+//
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
+//
+//public class JDBCconnetor {
+//    public static void main(String[] args) throws Exception {
+//
+       // Class.forName("com.mysql.cj.jdbc.Driver");
+        /*
+//     
+
+        Statement stmt = con.createStatement();
+      String query = "insert into employee" +        "(emp_id,emp_name,location,email,salary,dept,age)"+
+       		"values"+
+        "(8,'sandip','pune','sandip@123gmail.com',75000,'it',24)";
+
+        int result = stmt.executeUpdate(query);
+
+     //  System.out.println(result + " record inserted successfully!");
+
+     //  con.close();
+}
+}
+*/
